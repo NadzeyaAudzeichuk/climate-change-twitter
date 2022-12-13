@@ -1,7 +1,7 @@
 # climate-change-twitter
 
 
-##The Climate Change Twitter Presentation
+## The Climate Change Twitter Presentation
 
 We selected this topic because we were interested in learning how a change in temperature in your location affects your sentiment towards climate change.
 
