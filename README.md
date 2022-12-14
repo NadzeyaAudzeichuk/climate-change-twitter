@@ -1,7 +1,7 @@
-The Climate Change Twitter Project
+# The Climate Change Twitter Project
 
 
-Climate Change Twitter Topic
+## Climate Change Twitter Topic
 
 We selected this topic because we were interested in learning how a change in temperature in your location affects your sentiment towards climate change. The column in the dataset, temperature change, is defined as the temperature deviation in Celsius from January 1951 to December 1980 at the time and place that the tweet was written. We think that companies will be able to use our findings to determine their climate policy. We also think this will be helpful for companies who are in the green industry. 
 
@@ -10,11 +10,11 @@ The data is sourced from Twitter tweets from 2006-2011. The original data set ha
 We want to know whether people who are in areas that have experienced higher degrees of climate change are more likely to believe in climate change. We also want to know the areas that are most and least likely to believe in climate change and how that relates to how much the temperature has changed in this location.
 
 
-Description of Communication Protocols
+## Description of Communication Protocols
 We have set up a slack channel and will meet one to two times a week to discuss our project. We will collaborate and use this time to help all members of the team ask questions and finish their deliverables. 
 
 
-Data and Database Creation: 
+## Data and Database Creation 
 
 Please use this link to access our raw data. Since the dataset is too large, we are unable to load it into github.
 
@@ -61,19 +61,19 @@ agressiveness_agressive BOOLEAN NOT NULL,
 aggressiveness_not aggressive BOOLEAN NOT NULL
 );
 
-# Technologies Used
+## Technologies Used
 
-## Data Cleaning and Analysis
+### Data Cleaning and Analysis
 We will use Pandas to clean the data up and remove rows with null values. We will use one-hot encoder to make categorical values into numerical values that can be used in deep machine learning. We will use the imblearn library to import the machine learning model. We will analyze the data using accuracy and summary statistics.
 
-## Database Storage
+### Database Storage
 
 Postgres is the database we intend to use, and we will integrate Flask to display the data. We will also use the tableau to display the data in graphs and charts. We will create our dashboard using Tableau.
 
-## Dashboard
+### Dashboard
 
 In addition to using Flask, we will use tableau to create a dashboard that will show our findings in an interesting way. We plan on using the map function in tableau to show our data based on location.
 
 
-Machine Learning:
+### Machine Learning:
 ****
