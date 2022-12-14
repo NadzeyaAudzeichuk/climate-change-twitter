@@ -78,5 +78,16 @@ Postgres is the database we intend to use, and we will integrate Flask to displa
 In addition to using Flask, we will use tableau to create a dashboard that will show our findings in an interesting way. We plan on using the map function in tableau to show our data based on location.
 
 
-### Machine Learning:
-****
+## Machine Learning Model
+
+For this analysis we will be using a linear regression supervised machine learning model to analyze the trends and relationships in our dataset. Once the data is preprocessed and ready for the model, we will try multiple different models to find which one has the best accuracy.
+
+The first two models to be assessed are the Random Forest and the ADA Boost Ensemble. The Random Forest model uses bagging as the ensemble method and decision trees as the classification system. ADA Boost uses decision stumps that only have one split for each stump; this is different from the Random Forest decision trees that have many splits or branches for each tree. Some of the stumps have more weight than others which is where the "boosting" of certain relationships happen. In Random Forest all of the trees have the same weight. These models work differently but both are well suited for linear regression models and work to reduce bias in the dataset to create an accurate model.
+
+Next, we will try over- and undersampling the data to additionally reduce bias present in the data. This is interesting to us because our dataset is very biased towards men; men make up the greatest population on Twitter and are the large majority represented in our dataset. Once the data is preprocessed and we can convert the latitude/longitude to zipcodes and then to states, we will have a better understanding of any location bias present in the data as well. If one location is over represented in the data, over- and undersampling the data may help to adjust the model to take account of this bias. 
+
+The oversampling models we will run the data through are Naive Random Oversampler and the SMOTE (Synthetic Minority Oversample Technique) algorithm. SMOTE synthetically generates more data for the under represented class, where Random Oversampling duplicates minority values. The undersampling technique we will run is the Cluster Centroids algorithm. This clusters the minority and the majority data and takes the centroids from each cluster, removing the outer data points so only running the model on the same amount of the central data from the minority and the majority. Then lastly we will run a combinatorial over- and undersampling technique, the SMOTEENN method. This works the same way as the SMOTE algorithm to oversample the data first, then undersamples the oversampled dataset to even further reduce bias.
+
+Once these models are run we will compare the accuracy scores and classification reports to determine which model (or models) are best fit for our dataset.
+
+
