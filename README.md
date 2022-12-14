@@ -14,7 +14,7 @@ We want to know whether people who are in areas that have experienced higher deg
 We have set up a slack channel and will meet one to two times a week to discuss our project. We will collaborate and use this time to help all members of the team ask questions and finish their deliverables. 
 
 
-## Data and Database Creation: 
+## Data and Database Creation 
 
 Please use this link to access our raw data. Since the dataset is too large, we are unable to load it into github.
 
