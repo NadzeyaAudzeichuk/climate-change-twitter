@@ -16,7 +16,10 @@ We have set up a slack channel and will meet one to two times a week to discuss 
 
 ## Data and Database Creation 
 
-Please use this link to access our raw data. Since the dataset is too large, we are unable to load it into github.
+Please use this link to access our raw data:
+https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset
+
+ Since the dataset is too large, we are unable to load it into github.
 
 Using pgAdmin and Postgres, we created a table using the below code:
 
