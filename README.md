@@ -11,18 +11,17 @@ We want to know whether people who are in areas that have experienced higher deg
 
 
 ## Description of Communication Protocols
-We have set up a slack channel and will meet one to two times a week to discuss our project. We will collaborate and use this time to help all members of the team ask questions and finish their deliverables. 
+We have set up a Slack channel and will meet one to two times a week to discuss our project. We will collaborate and use this time to help all members of the team ask questions and finish their deliverables. 
 
 
 ## Data and Database Creation 
 
-Please use this link to access our raw data:
-https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset
+The dataset is too large, we are unable to load it into github.Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
 
- Since the dataset is too large, we are unable to load it into github.
 
-Using pgAdmin and Postgres, we created a table using the below code:
+Using pgAdmin and Postgres, main table Climate_Change_Twitter was created.
 
+```
 CREATE TABLE climate_change_twitter (
     created_at DATE NOT NULL, 
     id VARCHAR NOT NULL,
@@ -35,34 +34,39 @@ CREATE TABLE climate_change_twitter (
     temperature FLOAT,
     agressiveness VARCHAR NOT NULL
 );
+```
 
-I then uploaded the data from our csv into the table. Using code, we will connect to the database we created in pgAdmin. See below for the ERD for our database:
+The csv data was loaded into the Postgres. Using code, we will connect to the database we created in pgAdmin. See below for the ERD for our database:
 
 
-We will create a second data table with our cleaned data as well as our one-hot encoded columns.  The new columns are ‘created_at’, ‘lng’, ‘lat’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, ‘topic_Donald Trump versus Science’, ‘topic_Global stance’, ‘topic_Ideological Positions on Global Warming’, ‘topic_Impact of Resource Overconsumption’, ‘topic_Importance of Human Intervantion’, ‘topic_Undefined / One Word Hashtags’, ‘topic_Weather Extremes’, ‘stance_believer’, ‘stance_denier’, ‘stance_neutral’, ‘gender_female’, ‘gender_male’, ‘gender_undefined’, ‘agressiveness_agressive’, and ‘aggressiveness_not aggressive’.
+We will create a second data table with cleaned data as well as our one-hot encoded columns.  The new columns will be: 
+
+‘created_at’, ‘lng’, ‘lat’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, ‘topic_Donald Trump versus Science’, ‘topic_Global stance’, ‘topic_Ideological Positions on Global Warming’, ‘topic_Impact of Resource Overconsumption’, ‘topic_Importance of Human Intervantion’, ‘topic_Undefined / One Word Hashtags’, ‘topic_Weather Extremes’, ‘stance_believer’, ‘stance_denier’, ‘stance_neutral’, ‘gender_female’, ‘gender_male’, ‘gender_undefined’, ‘agressiveness_agressive’, and ‘aggressiveness_not aggressive’.
 
 Using pgAdmin and Postgres, we created a second table using the below code where we loaded the new csv file that includes the new encoded columns and excluded the dropped columns and null values.
 
+```
 CREATE TABLE climate_change_twitter (
     created_at DATE NOT NULL, 
     lng FLOAT NOT NULL,
     lat FLOAT NOT NULL, 
     topic_Donald Trump versus Science BOOLEAN NOT NULL,
-topic_Global stance BOOLEAN NOT NULL,
-topic_Ideological Positions on Global Warming BOOLEAN NOT NULL,
-topic_Impact of Resource Overconsumption BOOLEAN NOT NULL,
-topic_Importance of Human Intervantion BOOLEAN NOT NULL,
-topic_Undefined / One Word Hashtags BOOLEAN NOT NULL,
-topic_Weather Extremes BOOLEAN NOT NULL,
-stance_believer BOOLEAN NOT NULL,
-stance_denier BOOLEAN NOT NULL,
-stance_neutral BOOLEAN NOT NULL,
-gender_female BOOLEAN NOT NULL,
-gender_male BOOLEAN NOT NULL,
-gender_undefined BOOLEAN NOT NULL,
-agressiveness_agressive BOOLEAN NOT NULL,
-aggressiveness_not aggressive BOOLEAN NOT NULL
+    topic_Global stance BOOLEAN NOT NULL,
+    topic_Ideological Positions on Global Warming BOOLEAN NOT NULL,
+    topic_Impact of Resource Overconsumption BOOLEAN NOT NULL,
+    topic_Importance of Human Intervantion BOOLEAN NOT NULL,
+    topic_Undefined / One Word Hashtags BOOLEAN NOT NULL,
+    topic_Weather Extremes BOOLEAN NOT NULL,
+    stance_believer BOOLEAN NOT NULL,
+    stance_denier BOOLEAN NOT NULL,
+    stance_neutral BOOLEAN NOT NULL,
+    gender_female BOOLEAN NOT NULL,
+    gender_male BOOLEAN NOT NULL,
+    gender_undefined BOOLEAN NOT NULL,
+    agressiveness_agressive BOOLEAN NOT NULL,
+    aggressiveness_not aggressive BOOLEAN NOT NULL
 );
+```
 
 ## Technologies Used
 
