@@ -9,6 +9,8 @@ The data is sourced from Twitter tweets from 2006-2011. The original data set ha
 
 We want to know whether people who are in areas that have experienced higher degrees of climate change are more likely to believe in climate change. We also want to know the areas that are most and least likely to believe in climate change and how that relates to how much the temperature has changed in this location.
 
+We have created a presentation outlining this project and the results: [Google Slides Presentation]
+(https://docs.google.com/presentation/d/1vIFzR__mxHt675rEYzvuTESJwUQbB_MHI_f6XBaV4s4/edit#slide=id.p)
 
 ## Description of Communication Protocols
 We have set up a Slack channel and will meet one to two times a week to discuss our project. We will collaborate and use this time to help all members of the team ask questions and finish their deliverables. 
@@ -16,7 +18,7 @@ We have set up a Slack channel and will meet one to two times a week to discuss 
 
 ## Data and Database Creation 
 
-The dataset is too large, we are unable to load it into github.Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
+The dataset is too large, we are unable to load it into github. Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
 
 
 Using pgAdmin and Postgres, main table Climate_Change_Twitter was created.
