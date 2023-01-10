@@ -25,7 +25,7 @@ Using pgAdmin and Postgres, main table Climate_Change_Twitter was created.
 ```
 CREATE TABLE climate_change_twitter (
     created_at DATE NOT NULL, 
-    id VARCHAR NOT NULL,
+    id BIGINT NOT NULL,
     lng FLOAT,
     lat FLOAT, 
     topic VARCHAR NOT NULL,
