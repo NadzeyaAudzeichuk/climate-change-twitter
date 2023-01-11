@@ -87,18 +87,111 @@ We used PostGres, PGAdmin, and the SQAlchemy library to connect our database wit
 
 We used tableau to create a dashboard that to show our findings in an interesting way using bar graphs, interactive filters, maps, and more. These graphs and maps helped to show the outcome of our model and which features had the greatest impact.
 
+## Analysis using Machine Learning
 
-## Machine Learning Model
+### Model Choice
 
-For this analysis we will be using a linear regression supervised machine learning model to analyze the trends and relationships in our dataset. Once the data is preprocessed and ready for the model, we will try multiple different models to find which one has the best accuracy.
+The model chosen for this project was the `Random Forest` supervised machine learning model. Supervised machine learning was chosen because we were predicting the stance of social media users and stance was already included in our data set; thus, we were building and training a model to determine what impact the other features were contributing to the stance of users. The advantages of `Random Forest` and why it was chosen for our project are:
 
-The first two models to be assessed are the Random Forest and the ADA Boost Ensemble. The Random Forest model uses bagging as the ensemble method and decision trees as the classification system. ADA Boost uses decision stumps that only have one split for each stump; this is different from the Random Forest decision trees that have many splits or branches for each tree. Some of the stumps have more weight than others which is where the "boosting" of certain relationships happen. In Random Forest all of the trees have the same weight. These models work differently but both are well suited for linear regression models and work to reduce bias in the dataset to create an accurate model.
+Model can take in raw latitude and longitude data
+This was very important for our project because we were interested in how location was affecting sentiment
+The data set was too large to effectively transform latitude and longitude to another data type, such as zip code; this was attempted and was estimated to take almost two weeks to run the code
+Excellent standard choice for classification models
+Can handle large data sets effectively with relatively low computation time
+Automatically balances data sets when a class is more infrequent than others in the set
+Good for our data because believers and men are more frequently represented
+Handles the problem of overfitting by creating multiple trees, with each tree trained slightly differently 
+Instead of searching for the most important feature while splitting a node, it searches for the best feature among a random subset of features. This results in a wide diversity that generally results in a better model.
+The disadvantages of `Random Forest` were also explored and the major points were found to be:
+Time limitations: if we were to test a model with 500+ trees it could be more accurate but would take a lot of time
+Acts like a black box algorithm, user has very little control over what the model does
+Feature importance is provided but it does not provide complete visibility
+While these limitations do exist they were considered to be acceptable and `Random Forest` was chosen as our best model choice.
+## Feature selection and engineering 
 
-Next, we will try over- and undersampling the data to additionally reduce bias present in the data. This is interesting to us because our dataset is very biased towards men; men make up the greatest population on Twitter and are the large majority represented in our dataset. Once the data is preprocessed and we can convert the latitude/longitude to zipcodes and then to states, we will have a better understanding of any location bias present in the data as well. If one location is over represented in the data, over- and undersampling the data may help to adjust the model to take account of this bias. 
+The variables were split into the target and feature variables. The target variable determined for our model was `Stance`; this was encoded from categorical to numerical using `pandas` `df.replace` method with the corresponding values:
+Neutral = 0
+Believer = 1
+Denier = 2
 
-The oversampling models we will run the data through are Naive Random Oversampler and the SMOTE (Synthetic Minority Oversample Technique) algorithm. SMOTE synthetically generates more data for the under represented class, where Random Oversampling duplicates minority values. The undersampling technique we will run is the Cluster Centroids algorithm. This clusters the minority and the majority data and takes the centroids from each cluster, removing the outer data points so only running the model on the same amount of the central data from the minority and the majority. Then lastly we will run a combinatorial over- and undersampling technique, the SMOTEENN method. This works the same way as the SMOTE algorithm to oversample the data first, then undersamples the oversampled dataset to even further reduce bias.
+The features variables are as follows:
+`lng`, `lat`, `sentiment`, `temperature average`, `date`, `topic`, `gender`, and `aggressiveness`
 
-Once these models are run we will compare the accuracy scores and classification reports to determine which model (or models) are best fit for our dataset.
+The categorical feature variables (`topic`, `gender`, and `aggressiveness`)  were encoded to numerical using the `pandas.get_dummies()` method. The data was not scaled for the model because this is not necessary when using the `Random Forest` model because it is a tree-based model and therefore not so sensitive to variance in the data.
+
+### Data split into training and testing
+
+The features were split into training and testing sets using the `sklearn.model_selection.train_test_split` to create sets for the X (feature variables) and y (target variable). The standard split using this method creates a training set that comprises 75% of the data and therefore, the testing set comprises 25%; this is good standard practice that should work well for our data set.
+
+
+### Explanation of any changes in model choice
+
+When beginning this project, we had discussed exploring multiple supervised machine learning models to determine which would have the best scores. These different models (other than `Random Forest`) were `ADA Boost Ensemble`, `Naive Random Oversampler`, `SMOTE`, and `SMOTEENN`. However, when these were attempted to run with our data the computation time and power exceeded the limits of what we have available. Our data set is so large that these models were proven to be ineffective for this project and we decided to focus on optimizing `Random Forest`.
+
+### Description of how model was trained
+
+The `Random Forest` model was instantiated using `imblearn.ensemble.BalancedRandomForestClassfier` using the following line of code:
+`rf_model = BalancedRandomForestClassifier(n_estimators=100, random_state=78)`
+
+The n_estimators set how many trees the model will build from the data set. The number was chosen to be set at 100 after some trial and error of attempting a range of estimators.
+75, 125, 150, 175: resulted in lower accuracy scores
+200+: also resulted in lower accuracy scores plus took much more time to build and run the model (15+ minutes)
+
+The random state was set to 78 to ensure the model was repeatable amongst the project team as well as for future predictions. The model was then trained on the testing data sets and once trained, tested on predictions using the test data sets.
+
+Six different combinations of features were tested using this `Random Forest` model to explore which could result in better scores and which features were most important in this data set.
+1st: Entire Data Set
+2nd: Sentiment Removed
+3rd: Temperature Average Removed (as well as Sentiment)
+4th: Topic Removed (as well as Sentiment)
+5th: LAT and LNG Removed (as well as Sentiment)
+6th: Date Removed (as well as Sentiment)
+
+We found from reading the published paper from the origin of this data set that `Sentiment` and `Stance` have a 90% positive correlation; sentiment is basically the numerical value of the individual’s stance, but focused on the specific Tweet. Therefore, to prevent the model from overfitting and focusing mainly on sentiment for the predictions, we wanted to test the removal of features with sentiment also removed. This allowed us to better determine how the other features are interacting and influencing the model.
+
+### Results
+
+#### Confusion Matrix
+
+A confusion matrix is a table used to determine the accuracy of a classification model; more directly, it shows exactly what a model is predicting correctly and where the model is getting “confused”. It shows the actual versus the predicted values for each class. The confusion matrix was generated for all models and found slightly varying results for each model. However, the same general takeaway was found from the matrix for all models; the believer category was being overpredicted, and while accurate for the believer category, the others were being underpredicted and therefore much less accurate.
+
+#### Balanced Accuracy Score and Classification Reports
+
+The balanced accuracy score was utilized in this project to determine the overall accuracy of the model; the balanced accuracy score is the average between the sensitivity and the specificity, which measures the average accuracy obtained from both the minority and majority classes. Using balanced accuracy is better than accuracy when working with unbalanced data. We utilized the `sklearn.metrics.balanced_accuracy_score` with inputs `y_test` and `predictions`.
+
+The classification reports for each model were also generated with the features: precision, recall, f1, support, specificity, iba, and geo. The F1 score was isolated as the most important score from the classification report for us to focus on. Recall is more important when false negatives are more costly than false positives (such as predicting loan risk). Precision is more important when predicting all positives is more important than false negatives (such as predicting medical risks). F1 score is the harmonic mean of recall and precision, both of which are important here.  The F1 score is a popular performance measure for classification and is also often preferred over accuracy when data is unbalanced, like our data set is. The classification report was found using `imblearn.metrics.classification_report_imbalanced` also using inputs `y_test` and `predictions`.
+
+| *Model* | *Balanced Accuracy Score* | *f1 Score* |
+| Entire Data Set | 63.41% | 0.69 |
+| Sentiment Removed | 56.59% | 0.63 |
+| Temperature Avg Removed | 56.28% | 0.63 |
+| Topic Removed | 50.01% | 0.57 |
+| LAT and LNG Removed | 54.26% | 0.61 |
+| Date Removed | 51.47% | 0.58 | 
+** Comparison of balanced accuracy and f1 scores for each model**
+**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**
+
+These results are showing us that by removing features we are not improving upon the model’s ability to predict the stance, nor are any features greatly contributing to the accuracy. It is working best when the entire data set is put into the model; interestingly, when `Topic` is removed results in the lowest scores, when this feature was not predicted by us to be as important in the model. This does make sense because different topics have different inherent leanings; however, moving forward and testing more future Tweets this might not be the most useful feature because it is harder to determine (involves NLP) than simpler features such as temperature average and date. Removing the ‘Temperature Avg’ did not cause a drastic change in model prediction, contradicting our initial claim that it would be the most important feature. Relatively, these scores all hover around 50-60% accuracy, telling us that this model is not predicting useful results.
+
+#### Feature Importance
+
+The feature importance for each model was very interesting to us to understand how the different features are interacting in the model and what the model is leaning towards. To find this, we utilized this code:
+`features = sorted(zip(rf_model.feature_importances_, X.columns), reverse=True)
+for feature in features:
+    print(f"{feature[1]}: ({feature[0]})")`
+
+| *Model* | *1st Important Feature* | *2nd Important Feature* |
+| Entire Data Set | Sentiment: 25.61%  | Date: 21.28% |
+| Sentiment Removed | Date: 31.85% | Temperature Avg: 20.78% |
+| Temperature Avg Removed | Date: 43.79% | LNG: 23.71% |
+| Topic Removed | Date: 33.99% | Temperature Avg: 23.20% |
+| LAT and LNG Removed | Temperature Avg: 54.57% | Date: 36.12% |
+| Date Removed | Temperature Avg: 43.64% | LNG: 23.11% | 
+** Comparison of first and second most important features for each model**
+**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**
+
+As predicted, when the entire data set is run through the model the `Sentiment` is the most important. Once `Sentiment` is removed, `Date’ becomes the most important. `Date’ and `Temperature Avg’ are coming up the most often as the most important features; these features are likely correlated, as the `Temperature Avg’ is based on the day of the Tweet. Interestingly, the model with the feature that has the highest influence is the LAT and LNG removed model with ‘Temperature Avg’ = 54.57%. This is closer to the results we were expecting from the model, that location and therefore temperature change over time would most impact an individual’s stance. However, these results are still too low to draw any such conclusions. We were able to conclude that no one feature would give highly accurate results using this model.
+
 
 ## Takeaways
 The main takeaway from our analysis is that our data needs improving. The features present in our dataset are not good predictors of whether a user is a believer, denier, or neutral in their sentiment towards climate change. In order for us to use social media tweets to find a user's stance on climate change we would have to introduce new factors that have a higher impact in order to increase the accuracy of our model. Our data also has some biases. For instance, the dataset is mostly skewed towards believers in climate change. We also found that the majority of the tweets were male users. If our dataset was more even and less biased, our output and accuracy would most likely be different as these groups would not be over represented.
