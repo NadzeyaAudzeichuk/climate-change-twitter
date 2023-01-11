@@ -100,4 +100,10 @@ The oversampling models we will run the data through are Naive Random Oversample
 
 Once these models are run we will compare the accuracy scores and classification reports to determine which model (or models) are best fit for our dataset.
 
+## Takeaways
+The main takeaway from our analysis is that our data needs improving. The features present in our dataset are not good predictors of whether a user is a believer, denier, or neutral in their sentiment towards climate change. In order for us to use social media tweets to find a user's stance on climate change we would have to introduce new factors that have a higher impact in order to increase the accuracy of our model. Our data also has some biases. For instance, the dataset is mostly skewed towards believers in climate change. We also found that the majority of the tweets were male users. If our dataset was more even and less biased, our output and accuracy would most likely be different as these groups would not be over represented.
+
+We also think think that with more time and resources we could have improved the accuracy of our model by testing other machine learning models or using unsupervised models. We could also scrape the data in real time from Twitter to have an up to date view of the sentiment on climate change.
+
+We believe social media could be a great tool for all kinds of research into the opinions of people and this kind of research would help companies around the world.
 
