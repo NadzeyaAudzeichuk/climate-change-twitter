@@ -26,7 +26,7 @@ The dataset is sourced from Kaggle and is called the Climate Change Twitter Data
 The dataset is too large to load into GitHub. Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
 
 
-Using pgAdmin, sqlAlchemy, and Postgres, we connected our database to our code in Jupyter Notebook. We created two main tables for our data, one including the raw data and one including the cleaned data. We created the table Climate_Change_Twitter for the raw data. We had to use BIGINT for the id column because the integers were so large.
+Using pgAdmin, sqlAlchemy, and Postgres, we connected our database to our code in Jupyter Notebook. We created two main tables for our data, one including the raw data and one including the cleaned data. We created the table Climate_Change_Twitter for the raw data. We had to use BIGINT for the id column because the integers were so large. The ERD follows the below table since we did not need to perform any joins with our dataset.
 
 ```
 CREATE TABLE climate_change_twitter (
@@ -43,10 +43,9 @@ CREATE TABLE climate_change_twitter (
 );
 ```
 
-The csv data was loaded into the Postgres. Using code, we will connect to the database we created in pgAdmin. See below for the ERD for our database:
+After creating the table in PGAdmin, we loaded the data into the table and connected to our data with Jupyter Notebook.
 
-
-We will create a second data table with cleaned data as well as our one-hot encoded columns.  The new columns will be: 
+We created a second data table with cleaned data as well as our one-hot encoded columns.  The new columns will be: 
 
 ‘created_at’, ‘lng’, ‘lat’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, ‘topic_Donald Trump versus Science’, ‘topic_Global stance’, ‘topic_Ideological Positions on Global Warming’, ‘topic_Impact of Resource Overconsumption’, ‘topic_Importance of Human Intervantion’, ‘topic_Undefined / One Word Hashtags’, ‘topic_Weather Extremes’, ‘stance_believer’, ‘stance_denier’, ‘stance_neutral’, ‘gender_female’, ‘gender_male’, ‘gender_undefined’, ‘agressiveness_agressive’, and ‘aggressiveness_not aggressive’.
 
@@ -78,15 +77,15 @@ CREATE TABLE climate_change_twitter (
 ## Technologies Used
 
 ### Data Cleaning and Analysis
-We will use Pandas to clean the data up and remove rows with null values. We will use one-hot encoder to make categorical values into numerical values that can be used in deep machine learning. We will use the imblearn library to import the machine learning model. We will analyze the data using accuracy and summary statistics.
+We used Pandas to clean the data up and remove rows with null values. We used one-hot encoder to make categorical values into numerical values in order to use them in our machine learning model. We used the imblearn library to import the machine learning model and the sklearn library to import the confusion matrix and the accuracy score. We analyzed the data using the confusion matrix, the accuracy score, and the classification report.
 
 ### Database Storage
 
-Postgres is the database we intend to use, and we will integrate Flask to display the data. We will also use the tableau to display the data in graphs and charts. We will create our dashboard using Tableau.
+We used PostGres, PGAdmin, and the SQAlchemy library to connect our database with its uploaded data to our code.
 
 ### Dashboard
 
-In addition to using Flask, we will use tableau to create a dashboard that will show our findings in an interesting way. We plan on using the map function in tableau to show our data based on location.
+We used tableau to create a dashboard that to show our findings in an interesting way using bar graphs, interactive filters, maps, and more. These graphs and maps helped to show the outcome of our model and which features had the greatest impact.
 
 
 ## Machine Learning Model
