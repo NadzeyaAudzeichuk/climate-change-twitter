@@ -172,8 +172,9 @@ The classification reports for each model were also generated with the features:
 | Topic Removed | 50.01% | 0.57 |
 | LAT and LNG Removed | 54.26% | 0.61 |
 | Date Removed | 51.47% | 0.58 | 
-*Comparison of balanced accuracy and f1 scores for each model*
-*Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed*
+
+<br> *Comparison of balanced accuracy and f1 scores for each model*
+*Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed* </br>
 
 These results are showing us that by removing features we are not improving upon the model’s ability to predict the stance, nor are any features greatly contributing to the accuracy. It is working best when the entire data set is put into the model; interestingly, when `Topic` is removed results in the lowest scores, when this feature was not predicted by us to be as important in the model. This does make sense because different topics have different inherent leanings; however, moving forward and testing more future Tweets this might not be the most useful feature because it is harder to determine (involves NLP) than simpler features such as temperature average and date. Removing the ‘Temperature Avg’ did not cause a drastic change in model prediction, contradicting our initial claim that it would be the most important feature. Relatively, these scores all hover around 50-60% accuracy, telling us that this model is not predicting useful results.
 
@@ -184,17 +185,19 @@ The feature importance for each model was very interesting to us to understand h
 for feature in features:
     print(f"{feature[1]}: ({feature[0]})")`
 
-| *Model* | *1st Important Feature* | *2nd Important Feature* |
+| **Model** | **1st Important Feature** | **2nd Important Feature** |
+| --------- | ------------------------- | ------------------------- |
 | Entire Data Set | Sentiment: 25.61%  | Date: 21.28% |
 | Sentiment Removed | Date: 31.85% | Temperature Avg: 20.78% |
 | Temperature Avg Removed | Date: 43.79% | LNG: 23.71% |
 | Topic Removed | Date: 33.99% | Temperature Avg: 23.20% |
 | LAT and LNG Removed | Temperature Avg: 54.57% | Date: 36.12% |
 | Date Removed | Temperature Avg: 43.64% | LNG: 23.11% | 
+<br>
 ** Comparison of first and second most important features for each model**
-**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**
+**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**</br>
 
-As predicted, when the entire data set is run through the model the `Sentiment` is the most important. Once `Sentiment` is removed, `Date’ becomes the most important. `Date’ and `Temperature Avg’ are coming up the most often as the most important features; these features are likely correlated, as the `Temperature Avg’ is based on the day of the Tweet. Interestingly, the model with the feature that has the highest influence is the LAT and LNG removed model with ‘Temperature Avg’ = 54.57%. This is closer to the results we were expecting from the model, that location and therefore temperature change over time would most impact an individual’s stance. However, these results are still too low to draw any such conclusions. We were able to conclude that no one feature would give highly accurate results using this model.
+As predicted, when the entire data set is run through the model the `Sentiment` is the most important. Once `Sentiment` is removed, `Date’ becomes the most important. `Date` and `Temperature Avg’ are coming up the most often as the most important features; these features are likely correlated, as the `Temperature Avg` is based on the day of the Tweet. Interestingly, the model with the feature that has the highest influence is the LAT and LNG removed model with `Temperature Avg` = 54.57%. This is closer to the results we were expecting from the model, that location and therefore temperature change over time would most impact an individual’s stance. However, these results are still too low to draw any such conclusions. We were able to conclude that no one feature would give highly accurate results using this model.
 
 
 ## Takeaways
