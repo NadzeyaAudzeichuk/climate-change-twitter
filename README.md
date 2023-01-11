@@ -93,29 +93,32 @@ We used tableau to create a dashboard that to show our findings in an interestin
 
 The model chosen for this project was the `Random Forest` supervised machine learning model. Supervised machine learning was chosen because we were predicting the stance of social media users and stance was already included in our data set; thus, we were building and training a model to determine what impact the other features were contributing to the stance of users. The advantages of `Random Forest` and why it was chosen for our project are:
 
-Model can take in raw latitude and longitude data
-This was very important for our project because we were interested in how location was affecting sentiment
-The data set was too large to effectively transform latitude and longitude to another data type, such as zip code; this was attempted and was estimated to take almost two weeks to run the code
-Excellent standard choice for classification models
-Can handle large data sets effectively with relatively low computation time
-Automatically balances data sets when a class is more infrequent than others in the set
-Good for our data because believers and men are more frequently represented
-Handles the problem of overfitting by creating multiple trees, with each tree trained slightly differently 
-Instead of searching for the most important feature while splitting a node, it searches for the best feature among a random subset of features. This results in a wide diversity that generally results in a better model.
+* Model can take in raw latitude and longitude data
+** This was very important for our project because we were interested in how location was affecting sentiment
+** The data set was too large to effectively transform latitude and longitude to another data type, such as zip code; this was attempted and was estimated to take almost two weeks to run the code
+* Excellent standard choice for classification models
+* Can handle large data sets effectively with relatively low computation time
+* Automatically balances data sets when a class is more infrequent than others in the set
+** Good for our data because believers and men are more frequently represented
+* Handles the problem of overfitting by creating multiple trees, with each tree trained slightly differently 
+** Instead of searching for the most important feature while splitting a node, it searches for the best feature among a random subset of features. This results in a wide diversity that generally results in a better model.
+
 The disadvantages of `Random Forest` were also explored and the major points were found to be:
-Time limitations: if we were to test a model with 500+ trees it could be more accurate but would take a lot of time
-Acts like a black box algorithm, user has very little control over what the model does
-Feature importance is provided but it does not provide complete visibility
+* Time limitations: if we were to test a model with 500+ trees it could be more accurate but would take a lot of time
+* Acts like a black box algorithm, user has very little control over what the model does
+* Feature importance is provided but it does not provide complete visibility
+
 While these limitations do exist they were considered to be acceptable and `Random Forest` was chosen as our best model choice.
+
 ## Feature selection and engineering 
 
 The variables were split into the target and feature variables. The target variable determined for our model was `Stance`; this was encoded from categorical to numerical using `pandas` `df.replace` method with the corresponding values:
-Neutral = 0
-Believer = 1
-Denier = 2
+<br>Neutral = 0</br>
+<br>Believer = 1</br>
+<br>Denier = 2</br>
 
 The features variables are as follows:
-`lng`, `lat`, `sentiment`, `temperature average`, `date`, `topic`, `gender`, and `aggressiveness`
+<br>`lng`, `lat`, `sentiment`, `temperature average`, `date`, `topic`, `gender`, and `aggressiveness`</br>
 
 The categorical feature variables (`topic`, `gender`, and `aggressiveness`)  were encoded to numerical using the `pandas.get_dummies()` method. The data was not scaled for the model because this is not necessary when using the `Random Forest` model because it is a tree-based model and therefore not so sensitive to variance in the data.
 
@@ -134,18 +137,18 @@ The `Random Forest` model was instantiated using `imblearn.ensemble.BalancedRand
 `rf_model = BalancedRandomForestClassifier(n_estimators=100, random_state=78)`
 
 The n_estimators set how many trees the model will build from the data set. The number was chosen to be set at 100 after some trial and error of attempting a range of estimators.
-75, 125, 150, 175: resulted in lower accuracy scores
-200+: also resulted in lower accuracy scores plus took much more time to build and run the model (15+ minutes)
+* 75, 125, 150, 175: resulted in lower accuracy scores
+* 200+: also resulted in lower accuracy scores plus took much more time to build and run the model (15+ minutes)
 
 The random state was set to 78 to ensure the model was repeatable amongst the project team as well as for future predictions. The model was then trained on the testing data sets and once trained, tested on predictions using the test data sets.
 
 Six different combinations of features were tested using this `Random Forest` model to explore which could result in better scores and which features were most important in this data set.
-1st: Entire Data Set
-2nd: Sentiment Removed
-3rd: Temperature Average Removed (as well as Sentiment)
-4th: Topic Removed (as well as Sentiment)
-5th: LAT and LNG Removed (as well as Sentiment)
-6th: Date Removed (as well as Sentiment)
+* 1st: Entire Data Set
+* 2nd: Sentiment Removed
+* 3rd: Temperature Average Removed (as well as Sentiment)
+* 4th: Topic Removed (as well as Sentiment)
+* 5th: LAT and LNG Removed (as well as Sentiment)
+* 6th: Date Removed (as well as Sentiment)
 
 We found from reading the published paper from the origin of this data set that `Sentiment` and `Stance` have a 90% positive correlation; sentiment is basically the numerical value of the individual’s stance, but focused on the specific Tweet. Therefore, to prevent the model from overfitting and focusing mainly on sentiment for the predictions, we wanted to test the removal of features with sentiment also removed. This allowed us to better determine how the other features are interacting and influencing the model.
 
@@ -161,15 +164,16 @@ The balanced accuracy score was utilized in this project to determine the overal
 
 The classification reports for each model were also generated with the features: precision, recall, f1, support, specificity, iba, and geo. The F1 score was isolated as the most important score from the classification report for us to focus on. Recall is more important when false negatives are more costly than false positives (such as predicting loan risk). Precision is more important when predicting all positives is more important than false negatives (such as predicting medical risks). F1 score is the harmonic mean of recall and precision, both of which are important here.  The F1 score is a popular performance measure for classification and is also often preferred over accuracy when data is unbalanced, like our data set is. The classification report was found using `imblearn.metrics.classification_report_imbalanced` also using inputs `y_test` and `predictions`.
 
-| *Model* | *Balanced Accuracy Score* | *f1 Score* |
+| **Model** | **Balanced Accuracy Score** | **f1 Score** |
+| --------- | --------------------------- | ------------ |
 | Entire Data Set | 63.41% | 0.69 |
 | Sentiment Removed | 56.59% | 0.63 |
 | Temperature Avg Removed | 56.28% | 0.63 |
 | Topic Removed | 50.01% | 0.57 |
 | LAT and LNG Removed | 54.26% | 0.61 |
 | Date Removed | 51.47% | 0.58 | 
-** Comparison of balanced accuracy and f1 scores for each model**
-**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**
+*Comparison of balanced accuracy and f1 scores for each model*
+*Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed*
 
 These results are showing us that by removing features we are not improving upon the model’s ability to predict the stance, nor are any features greatly contributing to the accuracy. It is working best when the entire data set is put into the model; interestingly, when `Topic` is removed results in the lowest scores, when this feature was not predicted by us to be as important in the model. This does make sense because different topics have different inherent leanings; however, moving forward and testing more future Tweets this might not be the most useful feature because it is harder to determine (involves NLP) than simpler features such as temperature average and date. Removing the ‘Temperature Avg’ did not cause a drastic change in model prediction, contradicting our initial claim that it would be the most important feature. Relatively, these scores all hover around 50-60% accuracy, telling us that this model is not predicting useful results.
 
