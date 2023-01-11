@@ -12,7 +12,6 @@ We have created a presentation and a Tableau dashboard outlining this project an
 
 [Google Slides Presentation](https://docs.google.com/presentation/d/1vIFzR__mxHt675rEYzvuTESJwUQbB_MHI_f6XBaV4s4/edit#slide=id.p)
 
-
 [Tableau Dashboard](https://public.tableau.com/app/profile/casey.lee2755/viz/ClimateChangeTwitter/Story1)
 
 
@@ -22,7 +21,7 @@ The dataset is sourced from Kaggle and is called the `Climate Change Twitter Dat
 
 The dataset is too large to load into GitHub. Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
 
-Using pgAdmin, sqlAlchemy, and Postgres, we connected our database to our code in Jupyter Notebook. We created two main tables for our data, one including the raw data and one including the cleaned data. We created the table Climate_Change_Twitter for the raw data. We had to use BIGINT for the id column because the integers were so large. The ERD follows the below table since we did not need to perform any joins with our dataset.
+Using pgAdmin, sqlAlchemy, and Postgres, we connected our database to our code in Jupyter Notebook. We created two main tables for our data, one including the raw data and one including the cleaned data. We created the table Climate_Change_Twitter for the raw data. We had to use BIGINT for the id column because the integers were so large. The ERD follows the table below since we did not need to perform any joins with our dataset.
 
 ```
 CREATE TABLE climate_change_twitter (
@@ -41,11 +40,7 @@ CREATE TABLE climate_change_twitter (
 
 After creating the table in PGAdmin, we loaded the data into the table and connected to our data with Jupyter Notebook.
 
-We created a second data table with cleaned data as well as our one-hot encoded columns.  The new columns will be: 
-
-‘created_at’, ‘lng’, ‘lat’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, ‘topic_Donald Trump versus Science’, ‘topic_Global stance’, ‘topic_Ideological Positions on Global Warming’, ‘topic_Impact of Resource Overconsumption’, ‘topic_Importance of Human Intervantion’, ‘topic_Undefined / One Word Hashtags’, ‘topic_Weather Extremes’, ‘stance_believer’, ‘stance_denier’, ‘stance_neutral’, ‘gender_female’, ‘gender_male’, ‘gender_undefined’, ‘agressiveness_agressive’, and ‘aggressiveness_not aggressive’.
-
-Using pgAdmin and Postgres, we created a second table using the code below where we loaded the new csv file that includes the new encoded columns and excluded the dropped columns and null values.
+Once the data was preprocessed, we created a second table using the code below where we loaded the new csv file that includes the encoded columns and excluded the dropped columns and null values.
 
 ```
 CREATE TABLE climate_change_twitter (
@@ -100,9 +95,7 @@ While these limitations do exist they were considered to be acceptable and `Rand
 The variables were split into the target and feature variables. The target variable determined for our model was `Stance`; this was encoded from categorical to numerical using `pandas` `df.replace` method with the corresponding values:
 
 Neutral = 0
-
 Believer = 1
-
 Denier = 2
 
 The features variables are as follows:
@@ -189,7 +182,7 @@ for feature in features:
 
 **Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**
 
-As predicted, when the entire data set is run through the model the `Sentiment` is the most important. Once `Sentiment` is removed, `Date’ becomes the most important. `Date` and `Temperature Avg’ are coming up the most often as the most important features; these features are likely correlated, as the `Temperature Avg` is based on the day of the Tweet. Interestingly, the model with the feature that has the highest influence is the LAT and LNG removed model with `Temperature Avg` = 54.57%. This is closer to the results we were expecting from the model, that location and therefore temperature change over time would most impact an individual’s stance. However, these results are still too low to draw any such conclusions. We were able to conclude that no one feature would give highly accurate results using this model.
+As predicted, when the entire data set is run through the model the `Sentiment` is the most important. Once `Sentiment` is removed, `Date` becomes the most important. `Date` and `Temperature Avg’ are coming up the most often as the most important features; these features are likely correlated, as the `Temperature Avg` is based on the day of the Tweet. Interestingly, the model with the feature that has the highest influence is the LAT and LNG removed model with `Temperature Avg` = 54.57%. This is closer to the results we were expecting from the model, that location and therefore temperature change over time would most impact an individual’s stance. However, these results are still too low to draw any such conclusions. We were able to conclude that no one feature would give highly accurate results using this model.
 
 
 ## Takeaways
