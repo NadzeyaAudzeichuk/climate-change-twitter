@@ -1,7 +1,6 @@
 # The Climate Change Twitter Project
 
-
-## Climate Change Twitter Topic
+## Overview of Topic
 
 We selected this topic because climate change is a topic of growing concern and relevance in today's word. It is a very politically charged and highly debated topic. There are strong stances of believers and deniers all over the world. It is often difficult for a government or scientific body to understand exactly how the public as a whole feels about climate change because public polls only go so far for participation rate. This causes biases within their data and there is a chance that people are not honest about their sentiment towards climate change in these surveys.
 
@@ -9,22 +8,19 @@ Social media is very widely used and people, as we all know, love to voice their
 
 The idea behind this project is to use social media (Twitter, specifically) to uncover how people are feeling towards climate change. We believe that this information can inform government bodies as well as companies in the green sector to find their target audiences. We are curious to see if locations that have experienced a higher change in weather conditions are stronger believers in climate change. Also, if locations that have not experienced climage change are more likley to be a denier.
 
-The data is sourced from Twitter tweets from 2006-2011. The original data set has 1,048,576 rows. The columns are ‘created at’, ‘id’, ‘lat’, ‘lng’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, and ‘aggressiveness’. The data consists of categorical and numerical data and has some null values in certain columns, particularly the ‘lat’, ‘lng’, and ‘temperature change’ columns. The columns of particular interest for us in this analysis are the ‘sentiment’, ‘stance’, 'gender', 'aggressiveness', 'topic', ‘temperature change’, ‘lat’, and ‘lng’ to find a correlation (if any) between these variables. The column in the dataset, temperature change, is defined as the temperature deviation in Celsius from January 1951 to December 1980 at the time and place that the tweet was written. 
+We have created a presentation and a Tableau dashboard outlining this project and the results: 
 
-We have created a presentation outlining this project and the results: [Google Slides Presentation](https://docs.google.com/presentation/d/1vIFzR__mxHt675rEYzvuTESJwUQbB_MHI_f6XBaV4s4/edit#slide=id.p)
-
-
-
-## Description of Communication Protocols
-We  set up a Slack channel and met weekly to discuss and work on our project as a group. We used this time to collaborate and uhelp all members of the team ask questions and finish their deliverables. 
+[Google Slides Presentation](https://docs.google.com/presentation/d/1vIFzR__mxHt675rEYzvuTESJwUQbB_MHI_f6XBaV4s4/edit#slide=id.p)
 
 
-## Data and Database Creation 
+[Tableau Dashboard](https://public.tableau.com/app/profile/casey.lee2755/viz/ClimateChangeTwitter/Story1)
 
-The dataset is sourced from Kaggle and is called the Climate Change Twitter Dataset. The data is comprised of over 15 million Twitter tweets from 2006 - 2019 (13 years). The dataset does not include the actual tweets, but only the topic that they are referring to. The main dimensions of information that we focused on from this dataset include the latitude, longitude, gender, topic, deviation from historical temperature, and aggressiveness. We dropped the ID column as it did not contribute any information to the model. Not all tweets had latitude and longitude values, so we reduced the dataset and dropped all rows with null values. We transformed the DATE column to include only the date and not the time stamp associated with the date. We used one-hot encoding and the pandas get dummies function on the gender, topic, and agressiveness columns in order to use them in our Machine Learning Model.
+
+## Data Source and Database
+
+The dataset is sourced from Kaggle and is called the `Climate Change Twitter Dataset`. The data is comprised of over 15 million Twitter tweets from 2006 - 2019 (13 years). The dataset does not include the actual tweets, but only the topic that they are referring to, as it is illegal to publish actual text from Tweets. The main dimensions of information that we focused on from this dataset include the latitude, longitude, gender, topic, temperature change, and aggressiveness. The column in the dataset, `temperature_avg`, is defined as the temperature deviation in Celsius from January 1951 to December 1980 at the time and place that the tweet was written. 
 
 The dataset is too large to load into GitHub. Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
-
 
 Using pgAdmin, sqlAlchemy, and Postgres, we connected our database to our code in Jupyter Notebook. We created two main tables for our data, one including the raw data and one including the cleaned data. We created the table Climate_Change_Twitter for the raw data. We had to use BIGINT for the id column because the integers were so large. The ERD follows the below table since we did not need to perform any joins with our dataset.
 
@@ -49,7 +45,7 @@ We created a second data table with cleaned data as well as our one-hot encoded 
 
 ‘created_at’, ‘lng’, ‘lat’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, ‘topic_Donald Trump versus Science’, ‘topic_Global stance’, ‘topic_Ideological Positions on Global Warming’, ‘topic_Impact of Resource Overconsumption’, ‘topic_Importance of Human Intervantion’, ‘topic_Undefined / One Word Hashtags’, ‘topic_Weather Extremes’, ‘stance_believer’, ‘stance_denier’, ‘stance_neutral’, ‘gender_female’, ‘gender_male’, ‘gender_undefined’, ‘agressiveness_agressive’, and ‘aggressiveness_not aggressive’.
 
-Using pgAdmin and Postgres, we created a second table using the below code where we loaded the new csv file that includes the new encoded columns and excluded the dropped columns and null values.
+Using pgAdmin and Postgres, we created a second table using the code below where we loaded the new csv file that includes the new encoded columns and excluded the dropped columns and null values.
 
 ```
 CREATE TABLE climate_change_twitter (
@@ -74,20 +70,9 @@ CREATE TABLE climate_change_twitter (
 );
 ```
 
-## Technologies Used
+## Analysis
 
-### Data Cleaning and Analysis
-We used Pandas to clean the data up and remove rows with null values. We used one-hot encoder to make categorical values into numerical values in order to use them in our machine learning model. We used the imblearn library to import the machine learning model and the sklearn library to import the confusion matrix and the accuracy score. We analyzed the data using the confusion matrix, the accuracy score, and the classification report.
-
-### Database Storage
-
-We used PostGres, PGAdmin, and the SQAlchemy library to connect our database with its uploaded data to our code.
-
-### Dashboard
-
-We used tableau to create a dashboard that to show our findings in an interesting way using bar graphs, interactive filters, maps, and more. These graphs and maps helped to show the outcome of our model and which features had the greatest impact.
-
-## Analysis using Machine Learning
+### Data Preprocessing
 
 ### Model Choice
 
@@ -113,12 +98,16 @@ While these limitations do exist they were considered to be acceptable and `Rand
 ## Feature selection and engineering 
 
 The variables were split into the target and feature variables. The target variable determined for our model was `Stance`; this was encoded from categorical to numerical using `pandas` `df.replace` method with the corresponding values:
-<br>Neutral = 0</br>
-<br>Believer = 1</br>
-<br>Denier = 2</br>
+
+Neutral = 0
+
+Believer = 1
+
+Denier = 2
 
 The features variables are as follows:
-<br>`lng`, `lat`, `sentiment`, `temperature average`, `date`, `topic`, `gender`, and `aggressiveness`</br>
+
+`lng`, `lat`, `sentiment`, `temperature average`, `date`, `topic`, `gender`, and `aggressiveness`
 
 The categorical feature variables (`topic`, `gender`, and `aggressiveness`)  were encoded to numerical using the `pandas.get_dummies()` method. The data was not scaled for the model because this is not necessary when using the `Random Forest` model because it is a tree-based model and therefore not so sensitive to variance in the data.
 
@@ -134,6 +123,7 @@ When beginning this project, we had discussed exploring multiple supervised mach
 ### Description of how model was trained
 
 The `Random Forest` model was instantiated using `imblearn.ensemble.BalancedRandomForestClassfier` using the following line of code:
+
 `rf_model = BalancedRandomForestClassifier(n_estimators=100, random_state=78)`
 
 The n_estimators set how many trees the model will build from the data set. The number was chosen to be set at 100 after some trial and error of attempting a range of estimators.
@@ -173,8 +163,9 @@ The classification reports for each model were also generated with the features:
 | LAT and LNG Removed | 54.26% | 0.61 |
 | Date Removed | 51.47% | 0.58 | 
 
-<br> *Comparison of balanced accuracy and f1 scores for each model*
-*Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed* </br>
+*Comparison of balanced accuracy and f1 scores for each model*
+
+*Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed*
 
 These results are showing us that by removing features we are not improving upon the model’s ability to predict the stance, nor are any features greatly contributing to the accuracy. It is working best when the entire data set is put into the model; interestingly, when `Topic` is removed results in the lowest scores, when this feature was not predicted by us to be as important in the model. This does make sense because different topics have different inherent leanings; however, moving forward and testing more future Tweets this might not be the most useful feature because it is harder to determine (involves NLP) than simpler features such as temperature average and date. Removing the ‘Temperature Avg’ did not cause a drastic change in model prediction, contradicting our initial claim that it would be the most important feature. Relatively, these scores all hover around 50-60% accuracy, telling us that this model is not predicting useful results.
 
@@ -193,9 +184,10 @@ for feature in features:
 | Topic Removed | Date: 33.99% | Temperature Avg: 23.20% |
 | LAT and LNG Removed | Temperature Avg: 54.57% | Date: 36.12% |
 | Date Removed | Temperature Avg: 43.64% | LNG: 23.11% | 
-<br>
+
 ** Comparison of first and second most important features for each model**
-**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**</br>
+
+**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**
 
 As predicted, when the entire data set is run through the model the `Sentiment` is the most important. Once `Sentiment` is removed, `Date’ becomes the most important. `Date` and `Temperature Avg’ are coming up the most often as the most important features; these features are likely correlated, as the `Temperature Avg` is based on the day of the Tweet. Interestingly, the model with the feature that has the highest influence is the LAT and LNG removed model with `Temperature Avg` = 54.57%. This is closer to the results we were expecting from the model, that location and therefore temperature change over time would most impact an individual’s stance. However, these results are still too low to draw any such conclusions. We were able to conclude that no one feature would give highly accurate results using this model.
 
