@@ -69,6 +69,8 @@ CREATE TABLE climate_change_twitter (
 
 ### Data Preprocessing
 
+For the data to be ready for the machine learning model some preprocessing needed to happen. Once the data set was loaded into `Jupyter Notebook` as a dataframe, all rows with null values were dropped. The data set is so large (15 mil) that we were not concerned about losing some data; once the values were dropped, we were left with 5 million rows. The `created_at` column was comprised of the date and the time stamp; using regular expressions, the date was isolated from this as this was considered to be the most important of this information and converted to a string. The categorical columns were converted to numerical (`Topic`, `Aggressiveness`, and `Gender) using `pandas get_dummies()` and the `stance` column was converted to numerical using `pandas df.replace`. The `ID` column was dropped because it did not contain information useful for the machine model.
+
 ### Model Choice
 
 The model chosen for this project was the `Random Forest` supervised machine learning model. Supervised machine learning was chosen because we were predicting the stance of social media users and stance was already included in our data set; thus, we were building and training a model to determine what impact the other features were contributing to the stance of users. The advantages of `Random Forest` and why it was chosen for our project are:
@@ -92,7 +94,7 @@ While these limitations do exist they were considered to be acceptable and `Rand
 
 ## Feature selection and engineering 
 
-The variables were split into the target and feature variables. The target variable determined for our model was `Stance`; this was encoded from categorical to numerical using `pandas` `df.replace` method with the corresponding values:
+The variables were split into the target and feature variables. The target variable determined for our model was `Stance`; this was encoded from categorical to numerical using `pandas df.replace` method with the corresponding values:
 
 Neutral = 0
 Believer = 1
