@@ -3,24 +3,30 @@
 
 ## Climate Change Twitter Topic
 
-We selected this topic because we were interested in learning how a change in temperature in your location affects your sentiment towards climate change. The column in the dataset, temperature change, is defined as the temperature deviation in Celsius from January 1951 to December 1980 at the time and place that the tweet was written. We think that companies will be able to use our findings to determine their climate policy. We also think this will be helpful for companies who are in the green industry. 
+We selected this topic because climate change is a topic of growing concern and relevance in today's word. It is a very politically charged and highly debated topic. There are strong stances of believers and deniers all over the world. It is often difficult for a government or scientific body to understand exactly how the public as a whole feels about climate change because public polls only go so far for participation rate. This causes biases within their data and there is a chance that people are not honest about their sentiment towards climate change in these surveys.
 
-The data is sourced from Twitter tweets from 2006-2011. The original data set has 1,048,576 rows. The columns are ‘created at’, ‘id’, ‘lat’, ‘lng’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, and ‘aggressiveness’. The data consists of categorical and numerical data and has some null values in certain columns, particularly the ‘lat’, ‘lng’, and ‘temperature change’ columns. The columns of particular interest for us in this analysis are the ‘sentiment’, ‘stance’, ‘temperature change’, ‘lat’, and ‘lng’ to find a correlation (if any) between these variables.
+Social media is very widely used and people, as we all know, love to voice their opinions using these platforms. Social media can be a great tool to collect and analyze the public opinions of people. Using our dataset, which contains features of 15 million tweets related to climate change, we wanted to see if we could predict whether someone was a believer, denier or neutral in their sentiment towards climate change. 
 
-We want to know whether people who are in areas that have experienced higher degrees of climate change are more likely to believe in climate change. We also want to know the areas that are most and least likely to believe in climate change and how that relates to how much the temperature has changed in this location.
+The idea behind this project is to use social media (Twitter, specifically) to uncover how people are feeling towards climate change. We believe that this information can inform government bodies as well as companies in the green sector to find their target audiences. We are curious to see if locations that have experienced a higher change in weather conditions are stronger believers in climate change. Also, if locations that have not experienced climage change are more likley to be a denier.
+
+The data is sourced from Twitter tweets from 2006-2011. The original data set has 1,048,576 rows. The columns are ‘created at’, ‘id’, ‘lat’, ‘lng’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, and ‘aggressiveness’. The data consists of categorical and numerical data and has some null values in certain columns, particularly the ‘lat’, ‘lng’, and ‘temperature change’ columns. The columns of particular interest for us in this analysis are the ‘sentiment’, ‘stance’, 'gender', 'aggressiveness', 'topic', ‘temperature change’, ‘lat’, and ‘lng’ to find a correlation (if any) between these variables. The column in the dataset, temperature change, is defined as the temperature deviation in Celsius from January 1951 to December 1980 at the time and place that the tweet was written. 
 
 We have created a presentation outlining this project and the results: [Google Slides Presentation](https://docs.google.com/presentation/d/1vIFzR__mxHt675rEYzvuTESJwUQbB_MHI_f6XBaV4s4/edit#slide=id.p)
 
+
+
 ## Description of Communication Protocols
-We have set up a Slack channel and will meet one to two times a week to discuss our project. We will collaborate and use this time to help all members of the team ask questions and finish their deliverables. 
+We  set up a Slack channel and met weekly to discuss and work on our project as a group. We used this time to collaborate and uhelp all members of the team ask questions and finish their deliverables. 
 
 
 ## Data and Database Creation 
 
-The dataset is too large, we are unable to load it into github. Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
+The dataset is sourced from Kaggle and is called the Climate Change Twitter Dataset. The data is comprised of over 15 million Twitter tweets from 2006 - 2019 (13 years). The dataset does not include the actual tweets, but only the topic that they are referring to. The main dimensions of information that we focused on from this dataset include the latitude, longitude, gender, topic, deviation from historical temperature, and aggressiveness. We dropped the ID column as it did not contribute any information to the model. Not all tweets had latitude and longitude values, so we reduced the dataset and dropped all rows with null values. We transformed the DATE column to include only the date and not the time stamp associated with the date. We used one-hot encoding and the pandas get dummies function on the gender, topic, and agressiveness columns in order to use them in our Machine Learning Model.
+
+The dataset is too large to load into GitHub. Please use this link to access our raw data [The Climate Change Twitter Dataset](https://www.kaggle.com/datasets/deffro/the-climate-change-twitter-dataset)
 
 
-Using pgAdmin and Postgres, main table Climate_Change_Twitter was created.
+Using pgAdmin, sqlAlchemy, and Postgres, we connected our database to our code in Jupyter Notebook. We created two main tables for our data, one including the raw data and one including the cleaned data. We created the table Climate_Change_Twitter for the raw data. We had to use BIGINT for the id column because the integers were so large.
 
 ```
 CREATE TABLE climate_change_twitter (
