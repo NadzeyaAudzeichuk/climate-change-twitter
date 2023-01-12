@@ -2,7 +2,7 @@
 
 ## Overview of Topic
 
-We selected this topic because climate change is a topic of growing concern and relevance in today's word. It is a very politically charged and highly debated topic. There are strong stances of believers and deniers all over the world. It is often difficult for a government or scientific body to understand exactly how the public as a whole feels about climate change because public polls only go so far for participation rate. This causes biases within their data and there is a chance that people are not honest about their sentiment towards climate change in these surveys.
+The issue of climate change is more relevant and important in today's globe. There are fervent believers and denialists all throughout the world. It is usually difficult for a government to understand how the people as a whole thinks about climate change since public polls may only gauge the participation rate to a certain level. We choose this topic because it is one that the modern world is growing more interested in and pertinent to.It can be difficult for governments or scientific groups to completely understand how the general people believes about climate change because of the low participation rates in public surveys.
 
 Social media is very widely used and people, as we all know, love to voice their opinions using these platforms. Social media can be a great tool to collect and analyze the public opinions of people. Using our dataset, which contains features of 15 million tweets related to climate change, we wanted to see if we could predict whether someone was a believer, denier or neutral in their sentiment towards climate change. 
 
