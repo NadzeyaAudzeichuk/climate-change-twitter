@@ -180,9 +180,9 @@ for feature in features:
 | LAT and LNG Removed | Temperature Avg: 54.57% | Date: 36.12% |
 | Date Removed | Temperature Avg: 43.64% | LNG: 23.11% | 
 
-** Comparison of first and second most important features for each model**
+*Comparison of first and second most important features for each model*
 
-**Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed**
+*Note: For temp avg, topic, lat/lng, and date removed models, sentiment was also removed*
 
 As predicted, when the entire data set is run through the model the `Sentiment` is the most important. Once `Sentiment` is removed, `Date` becomes the most important. `Date` and `Temperature Avg’ are coming up the most often as the most important features; these features are likely correlated, as the `Temperature Avg` is based on the day of the Tweet. Interestingly, the model with the feature that has the highest influence is the LAT and LNG removed model with `Temperature Avg` = 54.57%. This is closer to the results we were expecting from the model, that location and therefore temperature change over time would most impact an individual’s stance. However, these results are still too low to draw any such conclusions. We were able to conclude that no one feature would give highly accurate results using this model.
 
