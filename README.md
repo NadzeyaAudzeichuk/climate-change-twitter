@@ -3,7 +3,7 @@
 
 ## Climate Change Twitter Topic
 
-We selected this topic because we were interested in learning how a change in temperature in your location affects your sentiment towards climate change. The column in the dataset, temperature change, is defined as the temperature deviation in Celsius from January 1951 to December 1980 at the time and place that the tweet was written. We think that companies will be able to use our findings to determine their climate policy. We also think this will be helpful for companies who are in the green industry. 
+The issue of climate change is more relevant and important in today's globe. There are fervent believers and denialists all throughout the world. It is usually difficult for a government to understand how the people as a whole thinks about climate change since public polls may only gauge the participation rate to a certain level. We choose this topic because it is one that the modern world is growing more interested in and pertinent to.It can be difficult for governments or scientific groups to completely understand how the general people believes about climate change because of the low participation rates in public surveys.
 
 The data is sourced from Twitter tweets from 2006-2011. The original data set has 1,048,576 rows. The columns are ‘created at’, ‘id’, ‘lat’, ‘lng’, ‘topic’, ‘sentiment’, ‘stance’, ‘gender’, ‘temperature change’, and ‘aggressiveness’. The data consists of categorical and numerical data and has some null values in certain columns, particularly the ‘lat’, ‘lng’, and ‘temperature change’ columns. The columns of particular interest for us in this analysis are the ‘sentiment’, ‘stance’, ‘temperature change’, ‘lat’, and ‘lng’ to find a correlation (if any) between these variables.
 
